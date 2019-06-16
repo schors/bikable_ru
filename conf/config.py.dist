@@ -1,0 +1,26 @@
+# -*- coding: utf-8 -*-
+
+db_host = "dbhost"
+db_user = "dbuser"
+db_passwd = "539Djssaq82"
+db_name = "dbase"
+
+debug=0
+
+template_path =  "/templates/ru"
+session_storage =  "/data/sessions"
+statements_storage =  "/data/statements"
+reqs_storage =  "/data/reqs"
+serial_storage =  "/data/serial"
+archive_storage =  "/data/arch"
+region_conf="/data/conf"
+tmp_path = "/data/tmp"
+image_ext = ["jpg","jpeg","tiff","gif","png","svg","bmp"]
+session_lifetime = 3600
+reqs_lifetime = 3600*24
+email = "<hi@bikable.ru>"
+sendmail_from="noreply@bikable.ru"
+sendmail_location = "/usr/sbin/sendmail"
+tumb_size=(300,225)
+
+page_records=20

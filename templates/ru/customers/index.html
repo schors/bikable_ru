@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<link rel="stylesheet" href="/css/style.css" type="text/css" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<title>{{ rconf.name }}</title>
+		<script>
+function showAbout() {
+	var myDiv1 = document.getElementById('about');
+	var myDiv2 = document.getElementById('hide');
+	if(myDiv1.style.display == 'none') {
+		myDiv1.style.display = 'block';
+		myDiv2.style.display = 'none';
+	} else {
+		myDiv1.style.display = 'none';
+		myDiv2.style.display = 'block';
+	}
+	return false;
+}
+	</script>
+	<script type="text/javascript" src="//vk.com/js/api/openapi.js?88"></script>
+	<script type="text/javascript">
+		VK.init({apiId: 3581825, onlyWidgets: true});
+	</script>
+	<meta name="description" itemprop="description" property="og:description" content="{{ rconf.text3}}"/>
+	<meta property="og:image" itemprop="image" content="http://bikable.ru/i/{{ cregion }}-logo.png"/>
+	<meta property="og:title" itemprop="name" content="{{ rconf.name }}"/>
+	<meta property="og:site_name" content="bikable.ru"/>
+	<meta property="og:url" content="http://bikable.ru/{{ cregion }}/" />
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-41628200-1', 'bikable.ru');
+  ga('send', 'pageview');
+</script>
+	</head>
+	<body>
+		<div id="fb-root"></div>
+			<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+		    </script>
+		<div id="header">
+			<img src="/i/{{ cregion }}-logo.png" width="60" height="60"/><br/>
+			<br/>
+			<ul>
+				{% for region in aregions %}
+				{% if region.lock==0 %}
+				<li>{% if region.fulluri == cregion %}{{ region.name }}{% else %}<a href="/{{ region.fulluri }}/">{{ region.name }}</a>{% endif %}</li>
+				{% endif %}
+				{% endfor %}
+			</ul>
+		</div>
+		<div id="main">
+			<div id="h1">
+				{{ rconf.text1 }}
+			</div>
+			<div id="hide"><a href='javascript:;' onclick=showAbout()>Подробнее о проекте</a></div>
+			<div style="display:none" id="about">
+				<table>
+					<tr>
+						<td>
+							{{ rconf.text21 }}
+						</td>
+						<td>
+							{{ rconf.text22 }}
+						</td>
+					</tr>
+				</table>
+			</div>
+			<hr/>
+			<div id="h2">{{ rconf.text3 }}</div>
+		</div>
+		{% if templates is defined %}
+		<table class="statements">
+		{% for i in range((templates.__len__()/2.0)|round(0,"ceil")|int) %}
+			<tr>
+				<td><a href="/app/{{ templates[i*2].id }}">{{templates[i*2].name}}</a></td>
+				<td>{% if i*2+1 < templates.__len__() %}<a href="/app/{{ templates[i*2+1].id }}">{{templates[i*2+1].name}}{% endif %}</a></td>
+			</tr>
+		{% endfor %}
+		</table>
+		{% endif %}
+		<hr/>
+		<div id="footer">
+		<table>
+			<tr>
+				<td style="width:40%;text-align:left;">
+					{% if counter | int > 19 %}
+						{% if counter[-2:] | int > 19 %}
+							{% set cnt=counter[-1:] %}
+						{% else %}
+							{% set cnt=counter[-2:] %}
+						{% endif %}
+					{% else %}
+						{% set cnt=counter %}
+					{% endif %}
+					{% if cnt in ("0","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19") %}
+						{% set cntw="обращений" %}
+					{% elif cnt == "1" %}
+						{% set cntw="обращение" %}
+					{% elif cnt in ("2","3","4") %}
+						{% set cntw="обращения" %}
+					{% endif %}
+					Отправлено всего {{ counter }} {{ cntw }};<br/>
+					в {{ rconf.name1 }} &mdash; {{ rcounter }}.
+					<div id="like">
+						<div id="vk_like"></div><script type="text/javascript">VK.Widgets.Like("vk_like", {type: "mini", height: 20});</script>
+						<div class="fb-like" data-href="http://bikable.ru" data-send="false" data-layout="button_count" data-width="100" data-show-faces="true" data-font="arial"></div>
+						<a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru">Tweet</a> 
+						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script> 
+					</div>
+				</td>
+				<td style="width:30%;text-align:left;">
+					Вопросы и предложения, про сотрудничество, спонсорство и новые темы обращений присылайте
+					куратору проекта <a href="mailto:{{ rconf.email }}">{{ rconf.contact }}</a>.
+				</td>
+				<td style="width:30%;text-align:left;">
+					Разработка сайта: <a href="http://vk.com/schors">Филипп Кулин</a><br/><br/>
+					&laquo;{{ rconf.name }}&raquo; &mdash; {{ rconf.footer }}
+				</td>
+			</tr>
+		</table>
+		</div>
+	</body>
+</html>

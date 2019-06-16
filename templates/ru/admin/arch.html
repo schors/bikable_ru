@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="/css/adm.css" type="text/css" />
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<title>АДМИНКА / Архив</title>
+	</head>
+	<body>
+		<div id="header">
+			<p>{{ session.user.name }} ({{ session.user.email }})</p>
+			<ul>
+				<li><a href="/_adm/">Главная</a></li>
+				{% if session.user.priv == 1 %}
+				<li><a href="/_adm/r">Регионы</a></li>
+				<li><a href="/_adm/u">Администраторы и координаторы</a></li>
+				{% endif %}
+				<li><a href="/_adm/t">Шаблоны запросов</a></li>
+				<li>Архив запросов</li>
+				<li><a href="/_adm/l">Выход</a></li>
+			</ul>
+			<br/>
+			{% if session.user.priv == 1 %}<ul>
+				{% for fulluri, region in regions.iteritems() %}
+				<li>{% if fulluri == cregion %}{{ region.name }}{% else %}<a href="/_adm/a/{{ fulluri }}/">{{ region.name }}</a>{% endif %}</li>
+				{% endfor %}
+			</ul>{% endif %}
+			<br/>
+			Всего записей: {{ acount.count }}<br/>Страниц: {{ pages }}
+			{% if pages>1 %}
+			<ul>
+			{% if cpage|int + 5 > pages %}{% set stop=pages %}{% else %}{% set stop=cpage|int + 5 %}{% endif %}
+			{% if cpage|int - 5 < 0 %}{% set start=0 %}{% else %}{% set start=cpage|int - 5 %}{% endif %}
+			{%if cpage|int - 16 > 0 %}<li><a href="/_adm/a/{{ cregion }}/">Начало</a></li>{% endif %}
+			{%if cpage|int - 11 > 0 %}<li><a href="/_adm/a/{{ cregion }}/{{ cpage|int - 11 }}">&lt;&lt;</a></li>{% endif %}
+			{% for page in range(start,stop) %}
+				<li>{% if cpage != page|string %}<a href="/_adm/a/{{ cregion }}/{{ page }}/">{{ page }}</a>{% else %}{{ page }}{% endif %}</li>
+			{% endfor %}
+			{%if cpage|int + 11 < pages %}<li><a href="/_adm/a/{{ cregion }}/{{ cpage|int + 11 }}">&gt;&gt;</a></li>{% endif %}
+			{%if cpage|int + 16 < pages %}<li><a href="/_adm/a/{{ cregion }}/{{ pages - 1 }}">Конец</a></li>{% endif %}
+			</ul>
+			{% endif %}
+		</div>
+		<hr/>
+		<div id="content">
+		<div>
+			<table>
+				<capture>Архив</capture>
+				{% for arch in archs %}
+					<tr class="line{{ loop.cycle('odd', 'even') }}">
+						<td><a href="/_adm/a/{{ cregion }}/v/{{ arch.serial }}"> {{ arch.serial }} {% if arch.template.namez is defined %}{{ arch.template.namez }}{% else %}{{ arch.template.name }}{% endif %}</a></td>
+					</tr>
+					</form>
+				{% endfor %}
+			</table>
+		</div>
+		</div>
+	</body>
+</html>

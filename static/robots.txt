@@ -1,0 +1,5 @@
+User-agent: *
+Disallow:
+Crawl-delay: 2
+
+# See http://help.yandex.ru/webmaster/?id=996567 for help

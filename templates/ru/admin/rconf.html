@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="/css/adm.css" type="text/css" />
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<title>АДМИНКА / Настройка региона {{ regions[cregion].name }}</title>
+	</head>
+	<body>
+		<div id="header">
+			<p>{{ session.user.name }} ({{ session.user.email }})</p>
+			<ul>
+				<li><a href="/_adm/">Главная</a></li>
+				{% if session.user.priv == 1 %}
+				<li><a href="/_adm/r">Регионы</a></li>
+				<li><a href="/_adm/u">Администраторы и координаторы</a></li>
+				{% endif %}
+				<li><a href="/_adm/t">Шаблоны запросов</a></li>
+				<li><a href="/_adm/l">Выход</a></li>
+			</ul>
+			<br/>
+		</div>
+		<hr/>
+		<div id="content">
+			<p>Редактирование региона <span class="bold">{{ regions[cregion].name }}</span></p>
+			<ul>
+				<li>для загрузки логотипа надо выбрать файл и внизу "сохранить"</li>
+				<li>обратите внимание, что отдельно в конфигурацию вынесены контакты координатора</li>
+				<li>в текстовые поля надо вставлять HTML-код</li>
+				<li>все настройки применяются мгновенно после сохранения</li>
+			</ul>
+			<table>
+			<form action="" method="POST" enctype="multipart/form-data">
+			<input type="hidden" name="regid" value="{{ region_id }}"/>
+				<tr><td>
+					<label>Название организации</label>
+					{% if error.name is defined %}
+					{% if error.name == 'empty' %}
+					<div class="errormsg">не заполнен</div>
+					{% elif error.name == 'invalid' %}
+					<div class="errormsg">неверная</div>
+					{% endif %}
+					{% endif %}
+					<input class="field" name="name" size="30" value="{{ name }}"/>
+				</td>
+				<td>&nbsp;</td>
+				<tr><td>
+					<label>Имя региона в предложном падеже (В <i>Регионе</i>) </label>
+					{% if error.name1 is defined %}
+					{% if error.name1 == 'empty' %}
+					<div class="errormsg">не заполнен</div>
+					{% elif error.name1 == 'invalid' %}
+					<div class="errormsg">неверная</div>
+					{% endif %}
+					{% endif %}
+					<input class="field" name="name1" size="30" value="{{ name1 }}"/>
+				</td>
+				<td>&nbsp;</td>
+				</tr>
+				<tr><td>
+					<label>Логотип (только PNG 60x60)</label>
+					<img src="/i/{{cregion}}-logo.png" width="60" height="60"/><br/>
+					{% if error.logo == 'invalid' %}
+					<div class="errormsg">чего-то не то</div>
+					{% endif %}
+					<input name="logo" type="file"/>
+				</td>
+				<td>&nbsp;</td>
+				</tr>
+				<tr><td>
+					<label>Верхний текст</label>
+					{% if error.text1 is defined %}
+					{% if error.text1 == 'empty' %}
+					<div class="errormsg">не заполнен</div>
+					{% elif error.text1 == 'invalid' %}
+					<div class="errormsg">неверная</div>
+					{% endif %}
+					{% endif %}
+					<textarea name="text1" cols="70" rows="10">{{ text1 }}</textarea>
+				</td>
+				<td>&nbsp;</td>
+				</tr>
+				<tr><td>
+					<label>Средний левый текст</label>
+					{% if error.text21 is defined %}
+					{% if error.text21 == 'empty' %}
+					<div class="errormsg">не заполнен</div>
+					{% elif error.text21 == 'invalid' %}
+					<div class="errormsg">неверная</div>
+					{% endif %}
+					{% endif %}
+					<textarea name="text21" cols="70" rows="10">{{ text21 }}</textarea>
+				</td>
+				<td>&nbsp;</td>
+				</tr>
+				<tr><td>
+					<label>Средний правый текст</label>
+					{% if error.text21 is defined %}
+					{% if error.text21 == 'empty' %}
+					<div class="errormsg">не заполнен</div>
+					{% elif error.text21 == 'invalid' %}
+					<div class="errormsg">неверная</div>
+					{% endif %}
+					{% endif %}
+					<textarea name="text22" cols="70" rows="10">{{ text22 }}</textarea>
+				</td>
+				<td>&nbsp;</td>
+				</tr>
+				<tr><td>
+					<label>Нижний текст</label>
+					{% if error.text3 is defined %}
+					{% if error.text3 == 'empty' %}
+					<div class="errormsg">не заполнен</div>
+					{% elif error.text3 == 'invalid' %}
+					<div class="errormsg">неверная</div>
+					{% endif %}
+					{% endif %}
+					<textarea name="text3" cols="70" rows="10">{{ text3 }}</textarea>
+				</td>
+				<td>&nbsp;</td>
+				</tr>
+				</tr>
+				<tr><td>
+					<label>Подвал</label>
+					{% if error.footer is defined %}
+					{% if error.footer == 'empty' %}
+					<div class="errormsg">не заполнен</div>
+					{% elif error.footer == 'invalid' %}
+					<div class="errormsg">неверная</div>
+					{% endif %}
+					{% endif %}
+					<textarea name="footer" cols="70" rows="10">{{ footer }}</textarea>
+				</td>
+				<td>&nbsp;</td>
+				</tr>
+				<tr><td>
+					<label>Координатор (в дательном падеже)</label>
+					{% if error.contact is defined %}
+					{% if error.contact == 'empty' %}
+					<div class="errormsg">не заполнен</div>
+					{% elif error.contact == 'invalid' %}
+					<div class="errormsg">неверный</div>
+					{% endif %}
+					{% endif %}
+					<input class="field" name="contact" size="30" value="{{ contact }}"/>
+				</td>
+				<td>&nbsp;</td>
+				</tr>
+				<tr><td>
+					<label>email координатора</label>
+					{% if error.email is defined %}
+					{% if error.email == 'empty' %}
+					<div class="errormsg">не заполнен email</div>
+					{% elif error.email == 'invalid' %}
+					<div class="errormsg">неверные символы</div>
+					{% endif %}
+					{% endif %}
+					<input class="field" name="email" size="30" value="{{ email }}"/>
+				</td>
+				<td>&nbsp;</td>
+				</tr>
+				<tr><td>
+					<input type="submit" value="Сохранить" name="save" class="button"/>
+				</td>
+				<td>&nbsp;</td>
+				</tr>
+			</form>
+			</table>
+
+		</div>
+		<hr/>
+	</body>
+</html>

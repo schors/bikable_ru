@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="/css/adm.css" type="text/css" />
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<title>АДМИНКА</title>
+	</head>
+	<body>
+		<div id="header">
+			<p>{{ session.user.name }} ({{ session.user.email }})</p>
+			<ul>
+				<li>Главная</li>
+				{% if session.user.priv == 1 %}
+				<li><a href="/_adm/r">Регионы</a></li>
+				<li><a href="/_adm/u">Администраторы и редакторы</a></li>
+				{% endif %}
+				<li><a href="/_adm/t">Шаблоны запросов</a></li>
+				<li><a href="/_adm/a">Архив запросов</a></li>
+				<li><a href="/_adm/l">Выход</a></li>
+			</ul>
+		</div>
+		<hr/>
+		{% if error.password is defined %}
+		{% if error.password == 'succes' %}
+		<div class="errormsg">Пароль удачно сменён!</div>
+		{% endif %}
+		{% endif %}
+		<div id="content">
+			<p>Lorem ipsum для Админки</p>
+		</div>
+	</body>
+</html>

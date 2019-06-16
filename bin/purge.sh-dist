@@ -1,0 +1,5 @@
+#!/bin/sh
+
+find_cmd='/usr/bin/env find'
+rm_cmd='/usr/bin/env rm'
+$find_cmd  /home/phil/bikable/data/reqs/* -mtime +1d -type d -exec $rm_cmd -rf {} +

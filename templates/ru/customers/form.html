@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<link rel="stylesheet" href="/css/style.css" type="text/css" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<title>{{ template.namez }} | {{ rconf.name }}</title>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-41628200-1', 'bikable.ru');
+  ga('send', 'pageview');
+</script>
+	</head>
+	<body>
+		<div id="header"></div>
+		<div id="main">
+			<div id="form0"></div>
+			<div id="form">
+			<form action="" method="POST" enctype="multipart/form-data">
+			<table class="form">
+				<tr><td>
+				{{ template.authority }}<br/>
+				{{ template.whom }}
+				</td></tr>
+				{% if template.foreigns is defined %}
+				{% for foreign in template.foreigns %}
+				<tr><td>
+				<i>Копия:</i><br/>{{ foreign.authority }}<br/>
+				{{ foreign.whom }}
+				</td></tr>
+				{% endfor%}
+				{% endif %}
+				<tr><td id="title">
+				{{ template.title }}
+				</td></tr>
+				{% if template.texts is defined %}
+				{% for text in template.texts %}
+				<tr><td>
+				{% if text.type==0 %}
+				{{text.text}}
+				{% elif text.type==1 %}
+				{% if text.itext is defined %}<textarea rows="5" style="width:100%" name="text">{{ text.itext }}</textarea>
+				{% else %}<textarea rows="5" style="width:100%" name="text" placeholder="{{text.text}}"></textarea>{% endif %}
+				{% elif text.type==2 %}
+				{{text.text}}<br/>
+				<input type="file" name="files"/>
+				{% endif %}
+				{% if text.error is defined %}
+				{% if text.error == 'empty' %}
+				<div class="errormsg">не заполнен текст</div>
+				{% endif %}
+				{% if text.error == 'invalid' %}
+				<div class="errormsg">ошибка в заполнении текста</div>
+				{% endif %}
+				{% endif %}
+				</td></tr>
+				{% endfor%}
+				{% endif %}
+				<tr><td>
+					<table style="padding:0;margin:0">
+					<tr><td style="padding-top:0;padding-bottom:0;padding-left:0;"><label>Ваше имя</label></td></tr>
+					<tr>
+					<td style="padding-top:0;padding-bottom:0;padding-left:0;" class="field"><input style="width:100%"  name="fname" maxsize="100" value="{{ template.fname }}"  placeholder="Имя"/></td>
+					<td style="padding-top:0;padding-bottom:0;" class="field"><input style="width:100%"  name="patr" maxsize="100" value="{{ template.patr }}"  placeholder="Отчество"/></td>
+					<td style="padding-top:0;padding-right:0;padding-bottom:0;" class="field"><input style="width:100%" name="lname" maxsize="100" value="{{ template.lname }}"  placeholder="Фамилия"/></td></tr>
+					<tr><td style="padding-top:0;padding-bottom:0;padding-left:0;">
+					{% if error.lname is defined %}
+					{% if error.lname == 'empty' %}
+					<div class="errormsg">не указана фамилия</div>
+					{% endif %}
+					{% if error.lname == 'invalid' %}
+					<div class="errormsg">ошибка фамилии</div>
+					{% endif %}
+					{% elif error.fname is defined %}
+					{% if error.fname == 'empty' %}
+					<div class="errormsg">не указано имя</div>
+					{% endif %}
+					{% if error.fname == 'invalid' %}
+					<div class="errormsg">ошибка в имени</div>
+					{% endif %}
+					{% elif error.patr is defined %}
+					{% if error.patr == 'empty' %}
+					<div class="errormsg">не указано отчество</div>
+					{% endif %}
+					{% if error.patr == 'invalid' %}
+					<div class="errormsg">ошибка в отчестве</div>
+					{% endif %}
+					{% endif %}
+					</td></tr>
+					<tr><td style="padding-top:0;padding-bottom:0;padding-left:0;"><br/></td></tr>
+					<tr><td style="padding-top:0;padding-bottom:0;padding-left:0;"><label>Электронная почта</label></td></tr>
+					<tr><td style="padding-top:0;padding-bottom:0;padding-left:0;width:33%" class="field"><input name="email" style="width:100%" value="{{ template.email }}"  placeholder="Адрес электронной почты"/></td>
+					<td style="padding-top:0;padding-bottom:0;width:33%" class="field">&nbsp;</td>
+					<td style="padding-top:0;padding-right:0;padding-bottom:0;width:34%" class="field">&nbsp;</td></tr>
+					</table>
+					{% if error.email is defined %}
+					{% if error.email == 'empty' %}
+					<div class="errormsg">не указан адрес электронной почты</div>
+					{% endif %}
+					{% if error.email == 'invalid' %}
+					<div class="errormsg">ошибка в адресе электронной почты</div>
+					{% endif %}
+					{% endif %}
+				</td></tr>
+				<tr><td>
+					{%if template.secure is not defined %}<input id="store" type="checkbox" name="secure" value="1"/>
+					{% elif template.secure=="1" %}<input id="store" type="checkbox" name="secure" value="1" checked="checked"/>
+					{% else %}<input id="store" type="checkbox" name="secure" value="1"/>{% endif %}<label style="display: inline" for="store">Запомнить</label>
+				</td></tr>
+				<tr><td id="button">
+					<table style="padding:0;margin:0;width:100%;"><tr>
+					<td style="width:34%"></td>
+					<td style="width:33%"><input type="submit" name="send" value="Отправить {{template.title|lower}}" class="button" /></td>
+					<td style="width:33%;padding-top:25px;text-align:left"><a href="/{{ cregion }}/">отменить</a></td>
+					</tr></table>
+				</td></tr>
+			</table>
+			</form>
+			</div>
+			<div id="form1"></div>
+		</div>
+		<div id="header"></div>
+		<script>
+			function supportsPlaceholder() {
+				var i = document.createElement('input');
+				return 'placeholder' in i;
+			};
+			if (!supportsPlaceholder()) {
+				var inputFields = document.getElementsByTagName('input');
+				for (index = 0; index < inputFields.length; ++index) {
+					var placeholderText = inputFields[index].getAttribute('placeholder');
+					if (placeholderText != null) {
+						if (inputFields[index].value=='') { inputFields[index].value = inputFields[index].getAttribute('placeholder'); }
+						inputFields[index].onfocus = function() {
+							if(this.value == this.getAttribute('placeholder')) { this.value = ''; }
+						};
+						inputFields[index].onblur = function() {
+							if(this.value == '') { this.value = this.getAttribute('placeholder');; }
+						};
+						textFields[index].onsubmit = function() {
+							if(this.value == this.getAttribute('placeholder')) { this.value = ''; }
+						};
+					};
+				};
+				var textFields = document.getElementsByTagName('textarea');
+				for (index = 0; index < textFields.length; ++index) {
+					var placeholderText = textFields[index].getAttribute('placeholder');
+					if (placeholderText != null) {
+						textFields[index].value = textFields[index].getAttribute('placeholder');
+						textFields[index].onfocus = function() {
+							if(this.value == this.getAttribute('placeholder')) { this.value = ''; }
+						};
+						textFields[index].onblur = function() {
+							if(this.value == '') { this.value = this.getAttribute('placeholder');; }
+						};
+						textFields[index].onsubmit = function() {
+							if(this.value == this.getAttribute('placeholder')) { this.value = ''; }
+						};
+					};
+				};
+			};
+		</script>
+	</body>
+</html>

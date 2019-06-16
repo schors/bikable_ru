@@ -1,0 +1,293 @@
+html, body {
+	margin: 0 auto;
+	padding: 0px;
+	border: 0px;
+	overflow: auto;
+}
+
+body {
+	color: #000;
+	background: #fff;
+	width: 960px;
+	text-align: left;
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+div#header {
+	text-align: center;
+	margin-top: 30px;
+	margin-bottom: 20px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#header ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+#header li {
+	display: inline;
+	padding: 0;
+}
+
+#header #selected {
+	font-weight: bold;
+	background: #eeeeff;
+}
+
+
+div#footer {
+	margin: 20px auto 20px auto;
+	font-size: 8pt;
+	text-align: left;
+}
+
+
+div#h1 {
+	text-align: center;
+	font-size: 25pt;
+}
+
+div#h2 {
+	margin: 20px auto 10px auto;
+	text-align: center;
+	font-size: 20pt;
+}
+
+div#hide {
+	text-align: center;
+	margin: 20px auto;
+}
+
+div.errormsg {
+	text-align: left;
+	margin: 0 0 0 auto;
+	color: red;
+	font-size: 10pt;
+}
+
+
+div#form0 {
+	margin: 0 auto;
+	padding: 0 2em;
+	height: 5px;
+	width: 80%;
+	border-width: 0 5px 0 0;
+	border-style: solid;
+	background: #fcf9f4;
+	border-color: #ffffff;
+}
+
+div#form {
+	margin: 0 auto;
+	padding: 2em;
+	width: 80%;
+	border-width: 0 5px 0 0;
+	border-style: solid;
+	background: #fcf9f4;
+	border-color: #cccccc;
+}
+
+div#form1 {
+	margin: 0 auto;
+	padding: 0 2em;
+	height: 5px;
+	width: 80%;
+	border-width: 0 0 0 5px;
+	border-style: solid;
+	background: #cccccc;
+	border-color: #ffffff;
+}
+
+div#about {
+	margin: 20px auto;
+}
+
+table {
+	width: 100%;
+	border: 0;
+}
+
+table.form {
+	width: 100%;
+	margin: 0 auto;
+}
+
+table.statements {
+	margin: 10px auto 20px auto;
+}
+
+table.statements td {
+	width: 50%;
+}
+
+.footer table {
+	margin: 0 auto 0 auto;
+}
+
+td {
+	padding-right: 10px;
+	padding-left: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	vertical-align: top;
+}
+
+#about table {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+#about table td {
+	padding-left: 10px;
+	padding-right: 10px;
+	width: 50%;
+}
+
+td.statements {
+	width: 25%;
+}
+
+td#title {
+	font-size: 18pt;
+	text-align: center;
+}
+
+div#title {
+	margin: 20px auto 0 auto;
+	width: 100%;
+	text-align: center;
+}
+
+td#button {
+	text-align: center;
+}
+
+td#button a {
+	color: #000;
+}
+
+td#button a:hover {
+	color: #BD2025;
+}
+
+a sup {
+	text-decoration: none;
+}
+
+a, a:link {
+	color: #00A0C8;
+}
+
+a:hover {
+	color: #BD2025;
+}
+
+
+div#hide a {
+	font-size: 12pt;
+}
+
+label {
+	display: block;
+	text-align: left;
+}
+
+p {
+	font-size: 12pt;
+	font-family: Arial, sans-serif;
+}
+
+pre {
+	text-align: left;
+	white-space: pre-wrap;
+	white-space: -moz-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: -o-pre-wrap;
+	word-wrap: break-word;
+}
+
+hr {
+	margin: 0;
+	padding: 0;
+}
+
+.statements {
+	font-size: 18pt;
+}
+
+.button {
+	background: #00a33d;
+	font-size: 14pt;
+	color: #eeeeee;
+	border: 0;
+	height: 50px;
+	width: auto;
+	margin: 0 10px 0 10px;
+	padding: 0 25px 0 25px;
+	overflow: hidden;
+	-webkit-border-radius: 27px;
+	-moz-border-radius: 27px;
+	border-radius: 27px;
+}
+
+.button:hover {
+	background: #bf0000;
+}
+
+#like {
+	margin-top: 10px;
+	clear: both;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+	font-family: Helvetica, Arial, sans-serif;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	font-family: Helvetica, Arial, sans-serif;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+	font-family: Helvetica, Arial, sans-serif;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+	font-family: Helvetica, Arial, sans-serif;
+}
+:placeholder {
+	font-family: Helvetica, Arial, sans-serif;
+}
+::placeholder {
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+input,textarea {
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+
+.twitter-share-button {
+	float: left;
+	margin-top: 5px;
+	width: 94px;
+	overflow: hidden;
+}
+.plus-button {
+	float: left;
+	margin-top: 5px;
+	width: 73px;
+	overflow: hidden;
+}
+div.fb-like {
+	float: left;
+	margin-top: 5px;
+	width: 120px;
+}
+
+div#vk_like {
+	float: left;
+	margin-top: 5px;
+	width: 70px;
+	overflow: hidden;
+}

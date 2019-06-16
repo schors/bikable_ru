@@ -1,0 +1,28 @@
+
+Гражданин {{ template.lname }} {{ template.fname }} {{ template.patr }}
+адрес электронной почты для ответа: {{ template.email }}
+
+{{ template.authority }}
+{{ template.whom }}
+{% if template.foreigns is defined %}{% for foreign in template.foreigns %}
+Копия:
+{{ foreign.authority }}
+{{ foreign.whom }}
+{% endfor%}{% endif %}
+Дата: {{ template.createdate }}
+Исходящий номер: {{ template.sernum }}
+
+{{ template.title }}
+
+{% if template.texts is defined %}
+{% for text in template.texts %}
+{% if text.type==0 -%}
+{{text.text}}
+{%- elif text.type==1 -%}
+{% if text.itext is defined %}{{ text.itext }}{% else %} {% endif %}
+{%- elif text.type==2 -%}
+{%- if text.itext is defined %}Прикладываю к письму файл {{ text.filename }}{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}
+

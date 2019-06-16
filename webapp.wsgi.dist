@@ -1,0 +1,12 @@
+
+import sys,os
+os.environ['BASE_DIR'] = '/home/phil/wsgitpl'
+os.environ["APPLICATION_CONFIG"] = 'development'
+os.environ['LOGLEVEL'] = 'debug'
+os.environ['WEBLOG'] = 'YES'
+
+sys.path.append(os.environ['BASE_DIR'])
+
+from core import responder
+
+application = responder.Responder()

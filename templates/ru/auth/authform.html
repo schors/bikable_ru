@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<link rel="stylesheet" href="/css/adm.css" type="text/css" />
+		<title>Форма авторизации</title>
+	</head>
+	<body>
+		<div id="main">
+			<table class="form" style="width:auto; margin: 0 auto;">
+				<form action="" method="POST">
+				<tr><td>
+					<label>Логин</label>
+					{% if error.email is defined %}
+					{% if error.email == 'empty' %}
+					<div class="errormsg">поле должно содержать email</div>
+					{% endif %}
+					{% endif %}
+					<input name="login" value="{{ login }}" size="30"/>
+				</td></tr>
+				<tr><td>
+					<label>Пароль</label>
+					{% if error.login is defined %}
+					{% if error.login == "incorrect" %}
+					<div class="errormsg">неверный логин или пароль</div>
+					{% endif %}
+					{% endif %}
+					<input type="password" name="password" size="30" />
+				</td></tr>
+				<tr><td colspan="2" id="button">
+					<input type="submit" value="Войти" class="button" />
+					<input type="submit" value="Забыл пароль" class="button" name="lost"/>
+				</td></tr>
+			</form>
+			</table>
+		</div>
+	</body>
+</html>

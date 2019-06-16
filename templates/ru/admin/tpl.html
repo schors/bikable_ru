@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="/css/adm.css" type="text/css" />
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<title>АДМИНКА / Шаблоны</title>
+	</head>
+	<body>
+		<div id="header">
+			<p>{{ session.user.name }} ({{ session.user.email }})</p>
+			<ul>
+				<li><a href="/_adm/">Главная</a></li>
+				{% if session.user.priv == 1 %}
+				<li><a href="/_adm/r">Регионы</a></li>
+				<li><a href="/_adm/u">Администраторы и координаторы</a></li>
+				{% endif %}
+				<li>Шаблоны запросов</li>
+				<li><a href="/_adm/l">Выход</a></li>
+			</ul>
+			<br/>
+			{% if session.user.priv == 1 %}<ul>
+				{% for fulluri, region in regions.iteritems() %}
+				<li>{% if fulluri == cregion %}{{ region.name }}{% else %}<a href="/_adm/t/{{ fulluri }}/">{{ region.name }}</a>{% endif %}</li>
+				{% endfor %}
+			</ul>{% endif %}
+		</div>
+		<hr/>
+		<div id="content">
+		<div>
+			<table>
+				<capture>Шаблоны</capture>
+				{% for template in templates %}
+					<form action="" method="POST">
+					<input type="hidden" name="tplid" value="{{ template.id }}"/>
+					<input type="hidden" name="funiq" value="{{ funiq }}"/>
+					<tr class="line{{ loop.cycle('odd', 'even') }}">
+						<td><a href="/_adm/t/{{ cregion }}/{{ template.id }}"> {{ template.name }} </a></td>
+						<td>
+						{% if not loop.first %}<input type="submit" name="up" value="Поднять"/>{% else %} {% endif %}
+						</td>
+						<td>
+						{% if not loop.last %}<input type="submit" name="down" value="Опустить"/>{% else %} {% endif %}
+						</td>
+						<td>
+							{% if template.pub == 0 %}<input type="submit" name="pub" value="Опубликовать" class="button"/>{% endif %}
+							{% if template.pub == 1 %}<input type="submit" name="hide" value="Спрятать" class="button"/>{% endif %}
+						</td>
+					</tr>
+					</form>
+				{% endfor %}
+			</table>
+		</div>
+		<hr/>
+		<div>
+			<form action="" method="POST">
+			<input type="hidden" name="funiq" value="{{ funiq }}"/>
+			<label>Название нового обращения</label>
+			{% if error.name is defined %}
+			{% if error.name == 'empty' %}
+			<div class="errormsg">не заполнено название</div>
+			{% elif error.name == 'invalid' %}
+			<div class="errormsg">ошибка в названии</div>
+			{% endif %}
+			{% endif %}
+			<input class="field" name="name" style="width:99%" value="{{ name }}"/><br/><br/>
+			<input type="submit" value="Добавить" title="Добавить" class="button"/>
+			</form>
+		</div>
+		</div>
+	</body>
+</html>

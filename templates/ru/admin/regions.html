@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="/css/adm.css" type="text/css" />
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<title>АДМИНКА / Регионы</title>
+	</head>
+	<body>
+		<div id="header">
+			<p>{{ session.user.name }} ({{ session.user.email }})</p>
+			<ul>
+				<li><a href="/_adm/">Главная</a></li>
+				{% if session.user.priv == 1 %}
+				<li>Регионы</li>
+				<li><a href="/_adm/u">Администраторы и координаторы</a></li>
+				{% endif %}
+				<li><a href="/_adm/t">Шаблоны запросов</a></li>
+				<li><a href="/_adm/l">Выход</a></li>
+			</ul>
+		</div>
+		<hr/>
+		<div id="content">
+		<div>
+			<ul>
+				<li>заполнить конфигурацию региона можно нажав на ссылку с названием</li>
+				<li>заблокированный регион никак снаружи не виден, разблокированный - виден</li>
+				<li>регион нельзя удалить, если существует координатор. вообще лучше не удалять - только блокировать</li>
+				<li>с короткого название идёт редирект на длинное</li>
+				<li>Санкт-Петербург должен быть неприкасаемым, иначе всё сломается</li>
+				<li>"поднять"/"опустить" - сортировка в меню на главной, выше здесь - левее в меню</li>
+			</ul>
+			<table>
+				<capture>Регионы и города</capture>
+				{% if error.user is defined %}
+				<tr><td colspan="8"><div class="errormsg">невозможно удалить регион {{ error.user }} - есть координатор</div></td></tr>
+				{% endif %}
+				{% for region in aregions %}
+					<form action="" method="POST">
+					<input type="hidden" name="regid" value="{{ region.id }}"/>
+					<tr class="line{{ loop.cycle('odd', 'even') }}">
+						<td><a href="/_adm/r/{{ region.fulluri }}/">{{ region.name }}</a></td><td> /{{ region.fulluri }}/ </td> <td> {% if region.shorturi is defined %}(/{{ region.shorturi }}/){% endif %} </td>
+						{% if region.lock==1 %}
+						<td> заблокирован </td>
+						{% else %}
+						<td> </td>
+						{% endif %}
+						<td><input type="submit" name="delete" value="Удалить" class="button"/></td>
+						{% if region.lock==1 %}
+						<td><input type="submit" name="unlock" value="Разблокировать"  class="button"/></td>
+						{% else %}
+						<td><input type="submit" name="lock" value="Заблокировать"  class="button"/></td>
+						{% endif %}
+						<td>{% if not loop.first %}<input type="submit" name="up"  class="button" value="Поднять"/>{% else %} {% endif %}</td>
+						<td>{% if not loop.last %}<input type="submit" name="down"  class="button" value="Опустить"/>{% else %} {% endif %}</td>
+					</tr>
+					</form>
+				{% endfor %}
+			</table>
+		</div>
+		<hr/>
+		<div>
+			<form action="" method="POST">
+				<div>
+					<label>Название региона или города</label>
+					{% if error.name is defined %}
+					{% if error.name == 'empty' %}
+					<div class="errormsg">не заполнено название</div>
+					{% elif error.name == 'invalid' %}
+					<div class="errormsg">неверные символы в названии</div>
+					{% endif %}
+					{% endif %}
+					<input class="field" name="name" size="30" value="{{ name }}"/>
+				</div>
+				<div>
+					<label>Полное название для ссылки</label>
+					{% if error.fulluri is defined %}
+					{% if error.fulluri == 'empty' %}
+					<div class="errormsg">не заполнено полное название</div>
+					{% elif error.fulluri == 'invalid' %}
+					<div class="errormsg">неверные символы в полном названии</div>
+					{% elif error.fulluri == 'exist' %}
+					<div class="errormsg">такой URI уже зарегистрирован</div>
+					{% endif %}
+					{% endif %}
+					<input class="field" name="fulluri" size="30" value="{{ fulluri }}"/>
+				</div>
+				<div>
+					<label>Короткое название для ссылки</label>
+					{% if error.shorturi is defined %}
+					{% if error.shorturi == 'invalid' %}
+					<div class="errormsg">неверные символы в коротком названии</div>
+					{% elif error.shorturi == 'exist' %}
+					<div class="errormsg">такой URI уже зарегистрирован</div>
+					{% endif %}
+					{% endif %}
+					<input class="field" name="shorturi" size="30" value="{{ shorturi }}"/>
+				</div>
+				<div>
+					<label>&nbsp;</label>
+					<input type="submit" value="Добавить" title="Добавить"/>
+				</div>
+			</form>
+		</div>
+		</div>
+	</body>
+</html>

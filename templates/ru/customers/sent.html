@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<link rel="stylesheet" href="/css/style.css" type="text/css" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<title>Обращение сформировано | {{ rconf.name }}</title>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-41628200-1', 'bikable.ru');
+  ga('send', 'pageview');
+</script>
+	</head>
+	<body>
+		<div id="header"></div>
+		<div id="main">
+			<div id="h2">
+				{{ template.name }}
+			</div>
+			<div id="h2">
+				Пройдите, пожалуйста, по ссылке, которую мы отправили вам на электронную почту,
+				чтобы подтвердить и отправить созданное обращение.
+			</div>
+			<div id="title">
+					<form action="/{{ cregion }}/" method="GET"><input type="submit" value="Отправить ещё один запрос" class="button" /></form>
+			</div>
+		</div>
+	</body>
+</html>
