@@ -5,6 +5,7 @@
 /__pycache__/
 /conf/*
 !/conf/*.dist
+!/conf/__init__.py
 webapp.wsgi
 /data/conf/*
 !/data/conf/-default.conf
